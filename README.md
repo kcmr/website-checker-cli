@@ -6,13 +6,6 @@ Script en Python para comprobar si una web ha cambiado desde la última vez que 
 
 ## Uso
 
-### Build
-
-```bash
-pip install build
-python3 -m build  
-```
-
 ### Instalación
 
 ```bash
