@@ -13,10 +13,10 @@ python3 -m venv venv
 # Activate the virtual environment
 source venv/bin/activate
 
-# Install the dependencies and the package
-pip install -e .
+# Install the package (edit the path to the wheel file if needed)
+pip install dist/cw_cli-0.1.0-py3-none-any.whl
 
-# Create an alias for the cw command
-echo "alias cw='$(pwd)/venv/bin/cw'" >> ~/.bashrc
+# List the shortcuts
+ls -l venv/bin/cw
 
 echo "Installation completed. Please restart your terminal or run 'source ~/.bashrc' to use the 'cw' command."

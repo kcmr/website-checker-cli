@@ -2,7 +2,7 @@
 import requests
 import hashlib
 import json
-import os
+import sys
 from pathlib import Path
 
 CONFIG_DIR = Path.home() / ".cw_cli"
@@ -32,21 +32,35 @@ def check_website_changes(url, stored_hash):
         print(f"No se han detectado cambios en {url}.")
         return stored_hash
 
+def add_url_to_config(config, url):
+    if url not in config:
+        config[url] = get_website_hash(url)
+        save_config(config)
+        print(f"Se ha añadido la URL: {url}")
+    return config
+
 def main():
     config = load_config()
 
+    # Comprobar si se ha proporcionado una URL como argumento
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+        config = add_url_to_config(config, url)
+
     if not config:
         url = input("Introduce la URL de la web que quieres comprobar: ")
-        config[url] = get_website_hash(url)
-        save_config(config)
-        print(f"Se ha guardado la URL: {url}")
+        config = add_url_to_config(config, url)
     else:
         print("URLs guardadas:")
         for i, url in enumerate(config.keys(), 1):
             print(f"{i}. {url}")
         
-        choice = int(input("Selecciona el número de la URL que quieres comprobar: ")) - 1
-        url = list(config.keys())[choice]
+        choice = int(input("Selecciona el número de la URL que quieres comprobar (0 para añadir una nueva): "))
+        if choice == 0:
+            url = input("Introduce la nueva URL: ")
+            config = add_url_to_config(config, url)
+        else:
+            url = list(config.keys())[choice - 1]
         
         config[url] = check_website_changes(url, config[url])
         save_config(config)

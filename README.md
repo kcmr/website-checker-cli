@@ -1,40 +1,43 @@
-# RSS Fetcher para EOI Calahorra
+# Website checker CLI
 
-Esta aplicación de línea de comandos obtiene las últimas publicaciones del feed RSS de la Escuela Oficial de Idiomas de Calahorra.
+Script en Python para comprobar si una web ha cambiado desde la última vez que se comprobó.
+
+![cw CLI screenshot](./assets/cw-cli-screenshot.png)
 
 ## Uso
 
-La aplicación tiene dos modos de uso:
-
-1. Obtener entradas del feed RSS:
+### Build
 
 ```bash
-python src/main.py [número_de_entradas]
+pip install build
+python3 -m build  
 ```
 
-Si no se especifica el número de entradas, se mostrarán las 5 más recientes por defecto.
-
-2. Comprobar cambios en la página principal:
+### Instalación
 
 ```bash
-python src/main.py check
+./install.sh
 ```
 
-Este comando compara el contenido actual de la página principal de EOI Calahorra con una versión anterior almacenada en caché, e informa si ha habido cambios.
+### Ejecución
 
-## Desarrollo
-
-Este proyecto está configurado para ser desarrollado en un devcontainer. Asegúrese de tener Docker y Visual Studio Code con la extensión Remote - Containers instalados.
-
-1. Abra el proyecto en Visual Studio Code.
-2. Cuando se le solicite, seleccione "Reopen in Container".
-3. El contenedor se construirá y configurará automáticamente.
-4. Una vez dentro del contenedor, puede ejecutar la aplicación como se describe en la sección de Uso.
-
-## Dependencias
-
-Las dependencias del proyecto se encuentran listadas en el archivo `requirements.txt`. Para instalarlas, ejecute:
+Cuando se ejecute por primera vez, se pedirá la URL que se desea comprobar.
 
 ```bash
-pip install -r requirements.txt
+cw
 ```
+
+Una vez que existan URLs en la caché, se mostrará un listado de las URLs que se pueden comprobar.
+
+```bash
+cw <url_id>
+```
+
+Para introducir una nueva URL, se puede usar:
+
+```bash
+cw <url>
+```
+
+O bien, elegir la opción 0 en el menú de URLs y introducir la URL deseada.
+
